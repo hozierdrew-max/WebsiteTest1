@@ -79,7 +79,8 @@ export function importData(file: File): Promise<BlogPost[]> {
 // Load initial data from bundled JSON file (if exists)
 export async function loadInitialData(pageName: string): Promise<BlogPost[]> {
   try {
-    const response = await fetch(`/data/${pageName.toLowerCase()}-data.json`);
+    // 兼容 GitHub Pages 子路径部署，使用相对路径
+    const response = await fetch(`data/${pageName.toLowerCase()}-data.json`);
     if (response.ok) {
       const data = await response.json();
       return Array.isArray(data) ? data : data.posts || [];
